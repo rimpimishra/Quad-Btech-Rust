@@ -1,0 +1,153 @@
+QUAD  BTECH 
+ 1 - Palindrome Check
+fn is_palindrome(text: &str) -> bool {
+    let mut chars = text.chars();
+    let mut reversed = chars.rev();
+
+    chars.all(|c| c.to_lowercase() == reversed.next().unwrap().to_lowercase())
+}
+ 
+
+2-First Occurrence of a Number 
+fn find_first_occurrence(arr: &[i32], target: i32) -> Option<usize> {
+    arr.iter().position(|&x| x == target)
+} 
+ 
+
+3-Shortest Word
+fn find_shortest_word(text: &str) -> Option<&str> {
+    text.split_whitespace().min_by_key(|word| word.len())
+}
+ 
+
+4-Prime Number Check
+fn is_prime(n: u32) -> bool {
+    if n <= 1 {
+        return false;
+    }
+    for i in 2..=(n as f64).sqrt().ceil() as u32 {
+        if n % i == 0 {
+            return false;
+        }
+    }
+    true
+}
+
+
+5-Median of a Sorted Array
+fn find_median(arr: &[i32]) -> f64 {
+    let len = arr.len();
+    let mid = len / 2;
+    if len % 2 == 0 {
+        (arr[mid - 1] as f64 + arr[mid] as f64) / 2.0
+    } else {
+        arr[mid] as f64
+    }
+}
+
+
+ 6- Longest Common Prefix
+fn longest_common_prefix(strs: &[String]) -> String {
+    let mut prefix = strs[0].clone();
+    for word in strs.iter().skip(1) {
+        while !word.starts_with(&prefix) {
+            prefix = prefix[..prefix.len() - 1].to_string();
+            if prefix.is_empty() {
+                return "".to_string();
+            }
+        }
+    }
+    prefix
+}
+
+
+ 7-  Kth Smallest Element
+fn find_kth_smallest(arr: &[i32], k: usize) -> Option<i32> {
+    if k > arr.len() {
+        return None;
+    }
+    let mut sorted = arr.to_owned();
+    sorted.sort_unstable();
+    Some(sorted[k - 1])
+}
+
+
+8-  Maximum Depth of a Binary Tree (Recursive)
+struct TreeNode {
+    val: i32,
+    left: Option<Box<TreeNode>>,
+    right: Option<Box<TreeNode>>,
+}
+
+fn max_depth(root: &Option<Box<TreeNode>>) -> i32 {
+    if root.is_none() {
+        return 0;
+    }
+    let left_depth = max_depth(&root.as_ref().unwrap().left);
+    let right_depth = max_depth(&root.as_ref().unwrap().right);
+    std::cmp::max(left_depth, right_depth) + 1
+}
+
+
+9-  Reverse a String
+fn reverse_string(text: &str) -> String {
+    text.chars().rev().collect()
+}
+
+10-Check if a Number is Prime (refer to function #4)
+fn merge_sorted_arrays(arr1: &mut [i32], arr2: &[i32]) {
+    let mut i = arr1.len() - 1;
+    let mut j = arr2.len() - 1;
+    let mut k = arr1.len() + arr2.len() - 1;
+
+    while i >= 0 && j >= 0 {
+        if arr1[i] > arr2[j] {
+            arr1[k] = arr1[i];
+            i -= 1;
+        } else {
+            arr1[k] = arr2[j];
+            j -= 1;
+        }
+        k -= 1;
+    }
+
+    while j >= 0 {
+
+
+11-Merge two Sorted Arrays 
+fn merge_sorted_arrays(arr1: &mut [i32], arr2: &[i32]) {
+    let mut i = arr1.len() - 1;
+    let mut j = arr2.len() - 1;
+    let mut k = arr1.len() + arr2.len() - 1;
+
+    while i >= 0 && j >= 0 {
+        if arr1[i] > arr2[j] {
+            arr1[k] = arr1[i];
+            i -= 1;
+        } else {
+            arr1[k] = arr2[j];
+            j -= 1;
+        }
+        k -= 1;
+    }
+
+    while j >= 0 {
+        arr1[k] = arr2[j];
+        j -= 1;
+        k -= 1;
+    }
+}
+
+
+12- Minimum Subarray Sum
+fn find_max_subarray_sum(arr: &[i32]) -> i32 {
+    let mut max_so_far = i32::MIN; // Initialize with minimum possible value
+    let mut current_sum = 0;
+
+    for num in arr {
+        current_sum = std::cmp::max(*num, current_sum + *num);  // Update current sum
+        max_so_far = std::cmp::max(max_so_far, current_sum); // Update max sum
+    }
+
+    max_so_far
+}
